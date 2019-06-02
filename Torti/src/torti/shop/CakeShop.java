@@ -1,7 +1,7 @@
 package torti.shop;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -15,14 +15,14 @@ public class CakeShop extends ContactInfo{
 	private double money;
 	private String address;
 	private List<Supplier> suppliers;
-	private HashMap<KindCake, HashMap<ITypeCake, ArrayList<Cake>>>catalog;
+	private Map<KindCake, Map<ITypeCake, List<Cake>>>catalog;
 	
 	public CakeShop(String name, String address) {
 		super(name);
 		if (this.isValid(address) )
 		this.address = address;
 		suppliers = new ArrayList<Supplier>();
-		catalog = new HashMap<KindCake, HashMap<ITypeCake, ArrayList<Cake>>>();
+		catalog = new Map<KindCake, Map<ITypeCake, List<Cake>>>();
 	}
 	
 	public void addSupplier(Supplier s) {
@@ -44,10 +44,10 @@ public class CakeShop extends ContactInfo{
 	
 	public Cake getRandomCake() {
 
-		//HashMap<KindCake, HashMap<ITypeCake, ArrayList<Cake>>>catalog
+		//Map<KindCake, HashMap<ITypeCake, List<Cake>>>catalog
 		int randInd = new Random().nextInt(KindCake.values().length);
 		KindCake kind = KindCake.values()[randInd];
-		HashMap<ITypeCake, ArrayList<Cake>> arr = this.catalog.get(kind);
+		Map<ITypeCake, List<Cake>> arr = this.catalog.get(kind);
 		int randInd2 = new Random().nextInt(arr.keySet().size());
 		Object[] a = arr.keySet().toArray();
 		ArrayList<Cake> list = arr.get(a[randInd2]);
@@ -71,10 +71,10 @@ public class CakeShop extends ContactInfo{
 			
 	}
 	public void printCatalog() {
-		for (Entry<KindCake, HashMap<ITypeCake, ArrayList<Cake>>> entry : this.catalog.entrySet()) {
+		for (Entry<KindCake, Map<ITypeCake, List<Cake>>> entry : this.catalog.entrySet()) {
 			System.out.println(entry.getKey());
 
-			HashMap<ITypeCake, ArrayList<Cake>> map = entry.getValue();
+			Map<ITypeCake, List<Cake>> map = entry.getValue();
 
 			for (Entry<ITypeCake, ArrayList<Cake>> entry2 : map.entrySet()) {
 				System.out.println("  " + entry2.getKey());
@@ -83,9 +83,7 @@ public class CakeShop extends ContactInfo{
 					System.out.println("    " + c);
 				}
 			}
-
 		}
-
 	}
 
 }
